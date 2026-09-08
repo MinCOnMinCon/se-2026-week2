@@ -14,4 +14,20 @@ public class Example {
             System.out.println("- " + child.label);
         }
     }
+
+    private void hasChild(){
+
+    }
+
+    private void height(){
+
+    }
+
+    private void dfs(){
+
+    }
+    
+    private void bfs(){
+        
+    }
 }
