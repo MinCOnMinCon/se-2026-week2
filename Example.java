@@ -27,8 +27,21 @@ public class Example {
 
     }
 
-    private void dfs(){
+    private static Node dfs(Node root, String key){
+        if(root == null) 
+            return null;
+        if(key.equals(root.label)){
+            return root;
+        }
 
+        for(Node child : root.children){
+            Node result = dfs(child, key);
+            if(result != null){
+                return result;
+            }
+        }
+    
+        return null;
     }
     
     private static Node bfs(Node root, String key){
