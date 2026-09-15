@@ -40,15 +40,21 @@ public class Example {
         return maxHeight + 1;
     }
 
-    private void dfs(Node node) {
-        if (node == null) {
-            return;
+    private static Node dfs(Node root, String key){
+        if(root == null) 
+            return null;
+        if(key.equals(root.label)){
+            return root;
         }
 
-        System.out.println(node.label);
-        for (Node child : node.children) {
-            dfs(child);
+        for(Node child : root.children){
+            Node result = dfs(child, key);
+            if(result != null){
+                return result;
+            }
         }
+    
+        return null;
     }
 
     private static Node bfs(Node root, String key) {
