@@ -7,24 +7,37 @@ public class Example {
         Node root = new Node("Root");
         Node child1 = new Node("Child 1");
         Node child2 = new Node("Child 2");
-        
 
         root.addChild(child1);
         root.addChild(child2);
-        
+
+        Example example = new Example();
+
         System.out.println("Root label: " + root.label);
         System.out.println("Children of Root:");
         for (Node child : root.children) {
             System.out.println("- " + child.label);
         }
+        System.out.println("Has child: " + example.hasChild(root));
+        System.out.println("Height: " + example.height(root));
+        System.out.println("Find Child 2: " + bfs(root, "Child 2").label);
     }
 
-    private void hasChild(){
-
+    private boolean hasChild(Node node) {
+        return node != null && node.children != null && !node.children.isEmpty();
     }
 
-    private void height(){
+    private int height(Node node) {
+        if (!hasChild(node)) {
+            return 0;
+        }
 
+        int maxHeight = 0;
+        for (Node child : node.children) {
+            maxHeight = Math.max(maxHeight, height(child));
+        }
+
+        return maxHeight + 1;
     }
 
     private static Node dfs(Node root, String key){
@@ -43,20 +56,23 @@ public class Example {
     
         return null;
     }
-    
-    private static Node bfs(Node root, String key){
+
+    private static Node bfs(Node root, String key) {
+        if (root == null) {
+            return null;
+        }
+
         Queue<Node> non_visit = new ArrayDeque<>();
         non_visit.offer(root);
 
-        while(!non_visit.isEmpty()){
+        while (!non_visit.isEmpty()) {
             Node visit = non_visit.poll();
-            if(visit.label.equals(key)){
+            if (visit.label.equals(key)) {
                 return visit;
             }
-            else{
-                for(int i = 0; i < visit.children.size(); i++){
-                    non_visit.offer(visit.children.get(i));
-                }
+
+            for (Node child : visit.children) {
+                non_visit.offer(child);
             }
         }
 

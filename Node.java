@@ -12,6 +12,10 @@ public class Node {
     }
 
     public void addChild(Node child) {
+        if (child == null) {
+            return;
+        }
+        child.parent = this;
         this.children.add(child);
     }
 }
